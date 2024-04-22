@@ -5,11 +5,35 @@ Esse projeto até então é uma simples aplicação que sobe um arquivo direto e
 
 
 ## Pré-requisito
-Pré requisitos são criar um usuário com permissão AmazonS3FullAcess e criar uma chave de acesso.
+Pré requisitos são criar um usuário com permissão AmazonS3FullAcess e criar uma chave de acesso. 
+
+E criar um bucket.
 
 Esses dados serão utilizados na aplicação python.
 
 É importante ter o docker instalado e o docker-compose.
+
+- CORS
+
+Para a permissão de cors, vá nas configurações do bucket>permissões>CORS e edite e cole o código abaixo:
+
+```
+[
+    {
+        "AllowedHeaders": [
+            "*"
+        ],
+        "AllowedMethods": [
+            "PUT",
+            "POST"
+        ],
+        "AllowedOrigins": [
+            "*"
+        ],
+        "ExposeHeaders": []
+    }
+]
+```
 
 
 ## Como rodar o projeto
@@ -17,4 +41,7 @@ Esses dados serão utilizados na aplicação python.
 Para executar a aplicação entre na pasta projeto_aws e rode o comando:
 
 `docker-compose up --build`
+
+
+
 
