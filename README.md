@@ -38,6 +38,10 @@ Para a permissão de cors, vá nas configurações do bucket>permissões>CORS e 
 
 ## Como rodar o projeto
 
+A partir do arquivo `env-example` crie um arquivo `.env` e subistitua as variáveis.
+
+No arquivo `app.py` colocar as variáveis da aws de access key id e secret. (Não subir no git, * um ponto a melhorar)
+
 Para executar a aplicação entre na pasta projeto_aws e rode o comando:
 
 `docker-compose up --build`
