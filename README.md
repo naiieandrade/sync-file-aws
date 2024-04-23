@@ -38,9 +38,10 @@ Para a permissão de cors, vá nas configurações do bucket>permissões>CORS e 
 
 ## Como rodar o projeto
 
-A partir do arquivo `env-example` crie um arquivo `.env` e subistitua as variáveis.
+A partir do arquivo `env-example` crie um arquivo `.env` e subistitua a variável do nome do bucket.
 
-No arquivo `app.py` colocar as variáveis da aws de access key id e secret. (Não subir no git, * um ponto a melhorar)
+Na pasta `.aws` você encontra os arquivos exemplos para colocar as credenciais de **access key id** e **secret access key**. Esses arquivos podem ser encontrado no contâiner no caminho `~/.aws` equivalente ao `/root/.aws/`
+
 
 Para executar a aplicação entre na pasta projeto_aws e rode o comando:
 
