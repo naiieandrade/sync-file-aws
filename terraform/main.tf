@@ -5,13 +5,15 @@ terraform {
     bucket         = "myawsbucket-s3-ada" #"myawsbucket-s3-ada" #bucket para arquivo do terraform
     key            = "terraform/terraform.tfstate"
     region         = "us-east-1"
-    dynamodb_table = "aws_dynamodb_table.terraform_state_lock.name"
+    
     
   }
 }
 
+# dynamodb_table = "aws_dynamodb_table.terraform_state_lock.name"
+
 provider "aws" {
-  region = var.aws_region
+  region = "us-east-1"
 }
 
 resource "aws_s3_bucket" "up_report_bucket" {
