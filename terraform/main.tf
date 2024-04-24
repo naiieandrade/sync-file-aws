@@ -2,7 +2,7 @@ terraform {
   required_version = "0.14.4"
 
   backend "s3" {
-    bucket         = "up_report_bucket" #"myawsbucket-s3-ada" #bucket para arquivo do terraform
+    bucket         = "myawsbucket-s3-ada" #"myawsbucket-s3-ada" #bucket para arquivo do terraform
     key            = "terraform/terraform.tfstate"
     region         = "us-east-1"
     dynamodb_table = "upreports-tabela-dynamodb-para-lock"
