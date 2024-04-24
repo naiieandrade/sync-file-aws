@@ -1,4 +1,4 @@
-name: Deploy to AWS S3
+name: Deploy to AWS S3 #Deploy Terraform
 on:
   push:
     branches:
@@ -10,17 +10,39 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v1
+        uses: actions/checkout@v4
 
-      - name: Configure AWS Credentials
-        uses: aws-actions/configure-aws-credentials@v1
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v1
         with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: us-east-1
+          terraform_version: 0.14.4
+
+      - name: Initialize Terraform
+        run: terraform init
+
+      - name: Plan Terraform
+        run: terraform plan
+
+      - name: Apply Terraform
+        run: terraform apply -auto-approve
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+
+      # - name: Configure AWS Credentials
+      #   uses: aws-actions/configure-aws-credentials@v4
+      #   with:
+      #     aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      #     aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      #     aws-region: us-east-1
       
-      - name: Listar buckets
-        run: aws s3 ls
+      # - name: Listar buckets
+      #   run: aws s3 ls
 
       # - name: Deploy static site to S3 bucket
       #   run: aws s3 sync . s3://<bucket-name> --delete
+
+
+# .github/workflows/terraform.yml
+
+      
