@@ -1,21 +1,23 @@
 # sync-file-aws
 
 
-Esse projeto até então é uma simples aplicação que sobe um arquivo direto em um bucket no s3. (Que será evoluído com outras automaçoes...)
+Este projeto é uma aplicação simples que envia um arquivo diretamente para um bucket no S3 da AWS. Futuramente, será expandido com outras automações.
 
 
 ## Pré-requisito
-Pré requisitos são criar um usuário com permissão AmazonS3FullAcess e criar uma chave de acesso. 
-
-E criar um bucket.
+Antes de começar, é necessário criar um usuário no AWS IAM com permissão AmazonS3FullAccess e gerar uma chave de acesso. Além disso, é preciso criar um bucket no S3.
 
 Esses dados serão utilizados na aplicação python.
 
 É importante ter o docker instalado e o docker-compose.
 
-- CORS
+### Configuração CORS
 
-Para a permissão de cors, vá nas configurações do bucket>permissões>CORS e edite e cole o código abaixo:
+Para configurar o CORS, siga estes passos:
+
+1. Acesse as configurações do seu bucket no console da AWS.
+2. Vá para a seção "Permissões" e clique em "CORS".
+3. Cole o código abaixo:
 
 ```
 [
@@ -38,15 +40,10 @@ Para a permissão de cors, vá nas configurações do bucket>permissões>CORS e 
 
 ## Como rodar o projeto
 
-A partir do arquivo `env-example` crie um arquivo `.env` e subistitua a variável do nome do bucket.
+1. A partir do arquivo `env-example` crie um arquivo `.env` e subistitua a variável do nome do bucket.
 
-Na pasta `.aws` você encontra os arquivos exemplos para colocar as credenciais de **access key id** e **secret access key**. Esses arquivos podem ser encontrado no contâiner no caminho `~/.aws` equivalente ao `/root/.aws/`
+2. Na pasta `.aws` você encontra os arquivos exemplos para colocar as credenciais de **access key id** e **secret access key**. Esses arquivos podem ser encontrado no contâiner no caminho `~/.aws` equivalente ao `/root/.aws/`
 
-
-Para executar a aplicação entre na pasta projeto_aws e rode o comando:
+3. Para executar a aplicação entre na pasta projeto_aws e rode o comando:
 
 `docker-compose up --build`
-
-
-
-
