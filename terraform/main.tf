@@ -1,12 +1,8 @@
 terraform {
-  
-
   backend "s3" {
     bucket         = "myawsbucket-s3-ada" #"myawsbucket-s3-ada" #bucket para arquivo do terraform
     key            = "terraform/terraform.tfstate"
-    region         = "us-east-1"
-    
-    
+    region         = "us-east-1"    
   }
 }
 
@@ -17,6 +13,15 @@ terraform {
 provider "aws" {
   region = "us-east-1"
 }
+
+resource "aws_s3_bucket" "up_report_bucket" {
+  bucket = "myawsbucket-s3-ada"
+  
+  versioning {
+    enabled = true
+  }
+}
+
 
 resource "aws_s3_bucket" "up_report_bucket" {
   count = var.create_bucket ? 1 : 0
