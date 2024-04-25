@@ -14,9 +14,9 @@ provider "aws" {
   region = "us-east-1"
 }
 
-resource "aws_s3_bucket" "up_report_bucket" {
+resource "aws_s3_bucket" "myawsbucket" {
   bucket = "myawsbucket-s3-ada"
-  
+
   versioning {
     enabled = true
   }
