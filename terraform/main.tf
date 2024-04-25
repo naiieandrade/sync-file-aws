@@ -1,9 +1,9 @@
 terraform {
-  required_version = "0.14.4"
+  required_version = "1.8.2"
 
   backend "s3" {
     bucket         = "myawsbucket-s3-ada" #"myawsbucket-s3-ada" #bucket para arquivo do terraform
-    key            = "terraform/terraform.tfstate"
+    key            = ".terraform/terraform.tfstate"
     region         = "us-east-1"
     
     
@@ -17,7 +17,7 @@ provider "aws" {
 }
 
 resource "aws_s3_bucket" "up_report_bucket" {
-  count = length(aws_s3_bucket.up_report_bucket) == 0 ? 1 : 0
+  count = var.create_bucket ? 1 : 0
   bucket = "up_report_bucket"
 }
 
