@@ -19,10 +19,6 @@ jobs:
           aws-region: "us-east-1"
       - name: Listar buckets
         run: aws s3 ls
-    # env:
-    #   AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-    #   AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-    #   AWS_DEFAULT_REGION: "us-east-1"
 
   terraform:
     runs-on: ubuntu-latest
@@ -39,38 +35,34 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: "us-east-1" 
 
-      - name: Enable S3 bucket versioning
+      - name: Terraform fmt
+        id: fmt
         run: |
-          aws s3api put-bucket-versioning --bucket myawsbucket-s3-ada --versioning-configuration Status=Enabled
-          aws s3api put-bucket-encryption --bucket myawsbucket-s3-ada --server-side-encryption-configuration '{"Rules":[{"ApplyServerSideEncryptionByDefault":{"SSEAlgorithm":"AES256"}}]}'
-        env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          AWS_DEFAULT_REGION: "us-east-1"
-
-      - name: Setup Terraform
-        uses: hashicorp/setup-terraform@v3
+          cd terraform/
+          terraform fmt -check
+        continue-on-error: true
 
       - name: Terraform Init
+        id: init
         run: |
           cd terraform/
-          terraform init -reconfigure
+          terraform init
 
       - name: Terraform Validate
+        id: validate
         run: |
           cd terraform/
-          terraform validate
+          terraform validate -no-color
 
       - name: Terraform Plan
+        id: plan
         run: |
           cd terraform/
-          terraform plan
-        env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          AWS_DEFAULT_REGION: "us-east-1"
-      
+          terraform plan -no-color
+        continue-on-error: true
+
       - name: Terraform Apply
+        id: apply
         run: |
           cd terraform/
           terraform apply -auto-approve

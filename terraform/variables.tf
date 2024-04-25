@@ -33,16 +33,3 @@ variable "create_bucket" {
   default = true
 }
 
-
-
-# variable "instance_ami" {
-#   type        = string
-#   description = "Instance AMI"
-
-# }
-
-# variable "instance_type" {
-#   type        = string
-#   description = "Instance type"
-
-# }
