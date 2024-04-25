@@ -57,10 +57,11 @@ jobs:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: "us-east-1" 
-     
+
       - name: Enable S3 bucket versioning
         run: |
           aws s3api put-bucket-versioning --bucket myawsbucket-s3-ada --versioning-configuration Status=Enabled
+          aws s3api put-bucket-encryption --bucket myawsbucket-s3-ada --server-side-encryption-configuration '{"Rules":[{"ApplyServerSideEncryptionByDefault":{"SSEAlgorithm":"AES256"}}]}'
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
@@ -70,19 +71,16 @@ jobs:
         uses: hashicorp/setup-terraform@v3
 
       - name: Terraform Init
-        # id:   apply
         run: |
           cd terraform/
           terraform init
 
       - name: Terraform Validate
-        # id:   apply
         run: |
           cd terraform/
           terraform validate
 
       - name: Terraform Plan
-        # id:   apply
         run: |
           cd terraform/
           terraform plan
@@ -92,77 +90,9 @@ jobs:
           AWS_DEFAULT_REGION: "us-east-1"
       
       - name: Terraform Apply
-        # id:   apply
         run: |
           cd terraform/
           terraform apply -auto-approve
-        # env:
-        #   AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        #   AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        #   AWS_DEFAULT_REGION: "us-east-1"
-
-      # - name: Initialize Terraform
-      #   run: terraform init
-      #   working-directory: terraform
-
-      # - name: Terraform Plan
-      #   run: terraform plan --lock=false
-      #   working-directory: terraform
-      #   env:
-      #     AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-      #     AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-      #     AWS_DEFAULT_REGION: "us-east-1"
-
-      # - name: Terraform Apply
-      #   #if: github.ref == 'refs/heads/main'
-      #   run: terraform apply -auto-approve
-      #   working-directory: terraform
-      #   env:
-      #     AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-      #     AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-      #     AWS_DEFAULT_REGION: "us-east-1"
-
-      # - name: Setup Terraform
-      #   uses: hashicorp/setup-terraform@v3
-      #   with:
-      #     terraform_version: 1.8.2 # 0.14.4 
-      
-      # - name: terraform plan
-      #   uses: dflook/terraform-plan@v1
-      #   with:
-      #     path: terraform
-
-      # - name: Initialize Terraform
-      #   run:  |
-      #     cd terraform
-      #     terraform init
-
-      # - name: Plan Terraform
-      #   run:  |
-      #     cd terraform
-      #     terraform plan
-
-      # - name: Apply Terraform
-      #   run:  |
-      #     cd terraform
-      #     terraform apply -auto-approve
-        # env:
-        #   AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        #   AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-
-      # - name: Configure AWS Credentials
-      #   uses: aws-actions/configure-aws-credentials@v4
-      #   with:
-      #     aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-      #     aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-      #     aws-region: us-east-1
-      
-      # - name: Listar buckets
-      #   run: aws s3 ls
-
-      # - name: Deploy static site to S3 bucket
-      #   run: aws s3 sync . s3://<bucket-name> --delete
-
 
 # .github/workflows/terraform.yml
 
