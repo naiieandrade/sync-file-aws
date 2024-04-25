@@ -1,5 +1,5 @@
 terraform {
-  required_version = "1.8.2"  #0.14.4 
+  
 
   backend "s3" {
     bucket         = "myawsbucket-s3-ada" #"myawsbucket-s3-ada" #bucket para arquivo do terraform
@@ -9,6 +9,8 @@ terraform {
     
   }
 }
+
+# required_version = "1.8.2"  #0.14.4 
 
 # dynamodb_table = "aws_dynamodb_table.terraform_state_lock.name"
 
