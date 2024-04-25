@@ -3,7 +3,7 @@ terraform {
 
   backend "s3" {
     bucket         = "myawsbucket-s3-ada" #"myawsbucket-s3-ada" #bucket para arquivo do terraform
-    key            = ".terraform/terraform.tfstate"
+    key            = "terraform/terraform.tfstate"
     region         = "us-east-1"
     
     
