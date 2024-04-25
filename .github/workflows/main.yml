@@ -5,17 +5,61 @@ on:
       - main
 
 jobs:
-  deploy:
+  list_buckets:
     runs-on: ubuntu-latest
 
-    env:
-      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-      AWS_DEFAULT_REGION: "us-east-1"
-
     steps:
+      - name: Setup AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: "us-east-1"
+      - name: Listar buckets
+        run: aws s3 ls
+    # env:
+    #   AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+    #   AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+    #   AWS_DEFAULT_REGION: "us-east-1"
+
+  terraform:
+    runs-on: ubuntu-latest
+    needs: create_s3_bucket  # Ensure the S3 bucket job runs first
+    steps:
+      - name: Setup AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: "us-east-1"
+
       - name: Checkout
         uses: actions/checkout@v4
+
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+
+      - name: Initialize Terraform
+        run: terraform init
+        working-directory: terraform
+
+      - name: Terraform Plan
+        run: terraform plan
+        working-directory: terraform
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_DEFAULT_REGION: "us-east-1"
+
+      - name: Terraform Apply
+        if: github.ref == 'refs/heads/main'
+        run: terraform apply -auto-approve
+        working-directory: terraform
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_DEFAULT_REGION: "us-east-1"
 
       # - name: Setup Terraform
       #   uses: hashicorp/setup-terraform@v3
@@ -27,20 +71,20 @@ jobs:
       #   with:
       #     path: terraform
 
-      - name: Initialize Terraform
-        run:  |
-          cd terraform
-          terraform init
+      # - name: Initialize Terraform
+      #   run:  |
+      #     cd terraform
+      #     terraform init
 
-      - name: Plan Terraform
-        run:  |
-          cd terraform
-          terraform plan
+      # - name: Plan Terraform
+      #   run:  |
+      #     cd terraform
+      #     terraform plan
 
-      - name: Apply Terraform
-        run:  |
-          cd terraform
-          terraform apply -auto-approve
+      # - name: Apply Terraform
+      #   run:  |
+      #     cd terraform
+      #     terraform apply -auto-approve
         # env:
         #   AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
         #   AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
