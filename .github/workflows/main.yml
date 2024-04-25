@@ -17,10 +17,15 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Setup Terraform
-        uses: hashicorp/setup-terraform@v3
-        with:
-          terraform_version: 0.14.4
+      # - name: Setup Terraform
+      #   uses: hashicorp/setup-terraform@v3
+      #   with:
+      #     terraform_version: 1.8.2 # 0.14.4 
+      
+      # - name: terraform plan
+      #   uses: dflook/terraform-plan@v1
+      #   with:
+      #     path: terraform
 
       - name: Initialize Terraform
         run:  |
