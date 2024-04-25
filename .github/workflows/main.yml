@@ -1,29 +1,10 @@
 name: Deploy to AWS S3 #Deploy Terraform
-# on:
-#   push:
-#     branches:
-#       - main
-#   pull_request:
-#     types: [opened, synchronize, reopened]
 
 on: [pull_request]
 
 permissions:
   contents: read
   pull-requests: write
-
-# permissions:
-#   issues: write
-#   actions: write
-#   checks: write
-#   contents: write
-#   deployments: write
-#   id-token: write
-#   discussions: write
-#   pull-requests: write
-#   repository-projects: write
-#   statuses: write
-
 
 jobs:
   list_buckets:
@@ -73,7 +54,7 @@ jobs:
       - name: Terraform Init
         run: |
           cd terraform/
-          terraform init
+          terraform init -reconfigure
 
       - name: Terraform Validate
         run: |
