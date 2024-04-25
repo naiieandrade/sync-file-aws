@@ -28,6 +28,11 @@ variable "name_bucket" {
 
 }
 
+variable "create_bucket" {
+  type    = bool
+  default = true
+}
+
 
 
 # variable "instance_ami" {
