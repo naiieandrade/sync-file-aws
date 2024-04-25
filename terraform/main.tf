@@ -20,7 +20,7 @@ provider "aws" {
 
 resource "aws_s3_bucket" "up_report_bucket" {
   count = var.create_bucket ? 1 : 0
-  bucket = "up_report_bucket"
+  bucket = "up-reports-project-ada-bucket-25042024"
 }
 
 
