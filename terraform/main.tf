@@ -14,13 +14,21 @@ provider "aws" {
   region = "us-east-1"
 }
 
-resource "aws_s3_bucket" "myawsbucket" {
-  bucket = "myawsbucket-s3-ada"
 
-  versioning {
-    enabled = true
+resource "aws_s3_bucket_versioning" "versioning_example" {
+  bucket = "myawsbucket-s3-ada"
+  versioning_configuration {
+    status = "Enabled"
   }
 }
+
+# resource "aws_s3_bucket" "myawsbucket" {
+#   bucket = "myawsbucket-s3-ada"
+
+#   versioning {
+#     enabled = true
+#   }
+# }
 
 
 resource "aws_s3_bucket" "up_report_bucket" {
