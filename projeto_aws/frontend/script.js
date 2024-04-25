@@ -9,9 +9,8 @@ function uploadFile() {
         method: 'POST',
         body: formData
       })
-      .then(response => response.text())
-      .then(data => {
-        console.log(data);
+      .then(response => {
+        console.log(response);
         alert('File uploaded successfully!');
       })
       .catch(error => {

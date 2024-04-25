@@ -1,12 +1,13 @@
 import os
 from dotenv import load_dotenv, dotenv_values
+from flask_cors import CORS
 
 from flask import Flask, request
 import boto3
 
 
 app = Flask(__name__)
-
+CORS(app)
 # loading variables from .env file
 load_dotenv() 
 
