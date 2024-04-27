@@ -33,3 +33,11 @@ override.tf.json
 # Ignore CLI configuration files
 .terraformrc
 terraform.rc
+
+projeto_aws/.aws/config
+projeto_aws/.aws/credentials
+projeto_aws/backend/.env
+
+/venv
+
+projeto_aws/teste.ipynb

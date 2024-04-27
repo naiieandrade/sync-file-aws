@@ -3,7 +3,6 @@
 
 Este projeto é uma aplicação simples que envia um arquivo diretamente para um bucket no S3 da AWS. Futuramente, será expandido com outras automações.
 
-
 ## Pré-requisito
 Antes de começar, é necessário criar um usuário no AWS IAM com permissão AmazonS3FullAccess e gerar uma chave de acesso. Além disso, é preciso criar um bucket no S3.
 
