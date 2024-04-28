@@ -1,43 +1,35 @@
-variable "aws_region" {
-  type        = string
-  description = "AWS Region"
-
-}
-
-variable "aws_profile" {
-  type        = string
-  description = "AWS Profile"
-
-}
-
-variable "access_key_id" {
-  type        = string
-  description = "Access Key ID AWS"
-
-}
-
-variable "secret_key_id" {
-  type        = string
-  description = "Secret Key ID AWS"
-
-}
-
-variable "name_bucket" {
-  type        = string
-  description = "Name bucket"
-
-}
-
-
-
-# variable "instance_ami" {
+# variable "aws_region" {
 #   type        = string
-#   description = "Instance AMI"
+#   description = "AWS Region"
 
 # }
 
-# variable "instance_type" {
+# variable "aws_profile" {
 #   type        = string
-#   description = "Instance type"
+#   description = "AWS Profile"
 
 # }
+
+# variable "access_key_id" {
+#   type        = string
+#   description = "Access Key ID AWS"
+
+# }
+
+# variable "secret_key_id" {
+#   type        = string
+#   description = "Secret Key ID AWS"
+
+# }
+
+# variable "name_bucket" {
+#   type        = string
+#   description = "Name bucket"
+
+# }
+
+variable "create_bucket" {
+  type    = bool
+  default = true
+}
+
