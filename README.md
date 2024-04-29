@@ -2,6 +2,8 @@
 
 Este projeto tem o objetivo de criar uma automação que possa incluir relatórios garantindo resiliência, segurança e alta disponibilidade. Além de usar serviços da AWS.
 
+![UpReports](.github/imgs/upreports_home.png "Home UpReports")
+
 ## Arquitetura
 
 Usando os serviços das AWS e infraestrutura como código (IaC) segue a arquitetura do projeto atual.

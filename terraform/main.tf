@@ -40,3 +40,15 @@ resource "aws_s3_bucket" "up_report_bucket" {
   count  = var.create_bucket_s3 ? 1 : 0
   bucket = "up-reports-project-ada-bucket-29042024"
 }
+
+resource "aws_s3_bucket_cors_configuration" "cors_s3_bucket" {
+  bucket = "up-reports-project-ada-bucket-29042024"
+
+  cors_rule {
+    allowed_headers = ["*"]
+    allowed_methods = ["PUT", "POST"]
+    allowed_origins = ["*"]
+    expose_headers  = []
+    # max_age_seconds = 3000
+  }
+}

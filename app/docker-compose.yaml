@@ -14,7 +14,7 @@ services:
     networks:
       - mynetwork
     volumes:
-      - ./.aws:/root/.aws
+      - .aws:/root/.aws
 
   frontend:
     build: ./frontend

@@ -34,6 +34,6 @@ override.tf.json
 .terraformrc
 terraform.rc
 
-projeto_aws/.aws/config
-projeto_aws/.aws/credentials
-projeto_aws/backend/.env
+app/.aws/config
+app/.aws/credentials
+app/backend/.env
