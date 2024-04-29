@@ -1,14 +1,12 @@
 terraform {
   backend "s3" {
-    bucket         = "myawsbucket-s3-ada" 
-    key            = "terraform2/terraform.tfstate"
-    region         = "us-east-1"    
+    bucket         = var.name_bucket_to_tfstate 
+    key            = "terraform/terraform.tfstate"
+    region         = "us-east-1"
+    # encrypt = false
+    # dynamodb_table = "aws_dynamodb_table.terraform_state_lock.name"
   }
 }
-
-# required_version = "1.8.2"  #0.14.4 
-
-# dynamodb_table = "aws_dynamodb_table.terraform_state_lock.name"
 
 provider "aws" {
   region = "us-east-1"
@@ -16,7 +14,7 @@ provider "aws" {
 
 
 resource "aws_s3_bucket_versioning" "versioning_example" {
-  bucket = "myawsbucket-s3-ada"
+  bucket = var.name_bucket_to_tfstate
 
   versioning_configuration {
     status = "Enabled"
