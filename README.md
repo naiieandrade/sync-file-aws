@@ -45,10 +45,13 @@ Esses dados serão utilizados na aplicação python.
 
 Para que possa rodar o script `script.sh` certifique se de estar na pasta raíz onde se encontra o arquivo.
 
-É preciso alterar o nome dos dois buckets no arquivo `terraform/main.tf`. Um bucket será armazenado o arquivo .tfstate e o outro é o bucket para onde serão enviados os uploads.
+O script captura as credenciais da aws do usuário via terminal. Tenha certeza das permissões do usuário, no caso a de criação de buckets no serviço de armazenamento s3 da AWS, caso contrário a automação não irá funcionar.
 
-** pode criar uma pasta terraform sem essa etapa deixando localmente
+Também será perguntado o nome do bucket. O nome do bucket deve ser único, então você só terá esse feedback após o último comando do Terraform (apply). Para o nome do bucket use apenas números, letras e '.'.
 
+3. Como rodar
+
+Copie e cole o comando ou digite um por vez.
 
 ```
 chmod +x script.sh
