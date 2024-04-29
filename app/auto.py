@@ -30,10 +30,10 @@ def set_bucket_cors(bucket_name):
     )
     s3_client.put_bucket_cors(Bucket=bucket_name, CORSConfiguration=cors_configuration)
 
-aws_credentials = read_credentials('../projeto_aws/.aws/credentials')
+aws_credentials = read_credentials('../app/.aws/credentials')
 bucket_name = 'projeto-final-ada-2'
-if os.path.exists('../projeto_aws/.aws/config'):
-    aws_config = read_credentials('../projeto_aws/.aws/config')
+if os.path.exists('../app/.aws/config'):
+    aws_config = read_credentials('../app/.aws/config')
     region_name = aws_config.get('region')
 
 s3 = boto3.client(
