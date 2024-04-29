@@ -1,29 +1,42 @@
-terraform {
-  backend "s3" {
-    bucket         = "myawsbucket-s3-ada" 
-    key            = "terraform2/terraform.tfstate"
-    region         = "us-east-1"    
-  }
-}
-
-# required_version = "1.8.2"  #0.14.4 
-
-# dynamodb_table = "aws_dynamodb_table.terraform_state_lock.name"
-
 provider "aws" {
   region = "us-east-1"
 }
 
+resource "aws_s3_bucket_cors_configuration" "tfstate_bucket" {
+  bucket = "bucket-tosave-tfstate-upreports-ada"
 
-resource "aws_s3_bucket_versioning" "versioning_example" {
-  bucket = "myawsbucket-s3-ada"
+  cors_rule {
+    allowed_headers = ["*"]
+    allowed_methods = ["PUT", "POST"]
+    allowed_origins = ["*"]
+    expose_headers  = []
+    # max_age_seconds = 3000
+  }
+}
 
-  versioning_configuration {
-    status = "Enabled"
+
+# resource "aws_s3_bucket_versioning" "tfstate_versioning" {
+#   bucket = "bucket-tosave-tfstate-upreports-ada"
+#   # "bucket-tosave-tfstate-upreports" 
+#   #var.name_bucket_to_tfstate
+
+#   versioning_configuration {
+#     status = "Enabled"
+#   }
+# }
+
+
+terraform {
+  backend "s3" {
+    bucket = "bucket-tosave-tfstate-upreports-ada"
+    key    = "terraform/terraform.tfstate"
+    region = "us-east-1"
+    # encrypt = false
+    # dynamodb_table = "aws_dynamodb_table.terraform_state_lock.name"
   }
 }
 
 resource "aws_s3_bucket" "up_report_bucket" {
-  count = var.create_bucket ? 1 : 0
-  bucket = "up-reports-project-ada-bucket-25042024"
+  count  = var.create_bucket_s3 ? 1 : 0
+  bucket = "up-reports-project-ada-bucket-29042024"
 }

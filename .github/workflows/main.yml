@@ -1,9 +1,9 @@
-name: Deploy to AWS S3 #Deploy Terraform
+name: Deploy Terraform
 
 on: [pull_request]
 
 env:
-  BUCKET_TFSTATE: bucket-tosave-tfstate-upreports
+  BUCKET_TFSTATE: bucket-tosave-tfstate-upreports-ada
 
 permissions:
   contents: read
@@ -13,6 +13,7 @@ jobs:
   create_bucket_to_tfstate: 
     runs-on: ubuntu-latest
     steps:
+
       - name: Setup AWS Credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
@@ -41,7 +42,7 @@ jobs:
 
   terraform:
     runs-on: ubuntu-latest
-    #needs: create_s3_bucket  # Ensure the S3 bucket job runs first
+    needs: create_bucket_to_tfstate  # Ensure the S3 bucket job runs first
     steps:
 
       - name: Checkout
@@ -84,8 +85,4 @@ jobs:
         id: apply
         run: |
           cd terraform/
-          terraform apply -auto-approve
-
-# .github/workflows/terraform.yml
-
-      
+          terraform apply -auto-approve 

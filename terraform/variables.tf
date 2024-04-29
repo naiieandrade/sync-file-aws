@@ -1,14 +1,24 @@
-# variable "aws_region" {
-#   type        = string
-#   description = "AWS Region"
+variable "aws_region" {
+  type        = string
+  default     = "us-east-1"
+  description = "AWS Region"
 
-# }
+}
 
-# variable "aws_profile" {
-#   type        = string
-#   description = "AWS Profile"
+variable "aws_profile" {
+  type        = string
+  default     = "default"
+  description = "AWS Profile"
 
-# }
+}
+
+variable "create_bucket_s3" {
+  type    = bool
+  default = true
+}
+
+## Undo comment in these vars to run locally 
+## Create tfvars file and put values
 
 # variable "access_key_id" {
 #   type        = string
@@ -21,15 +31,3 @@
 #   description = "Secret Key ID AWS"
 
 # }
-
-# variable "name_bucket" {
-#   type        = string
-#   description = "Name bucket"
-
-# }
-
-variable "create_bucket" {
-  type    = bool
-  default = true
-}
-
