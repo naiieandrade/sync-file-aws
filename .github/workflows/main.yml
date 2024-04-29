@@ -2,8 +2,8 @@ name: Deploy to AWS S3 #Deploy Terraform
 
 on: [pull_request]
 
-env:
-  BUCKET_TFSTATE: bucket-tosave-tfstate-upreports
+# env:
+#   BUCKET_TFSTATE: bucket-tosave-tfstate-upreports
 
 permissions:
   contents: read
@@ -20,11 +20,17 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: "us-east-1"
 
-      - name: Create S3 Bucket
+      - name: Create S3 bucket
         run: |
-          aws s3api create-bucket --bucket ${BUCKET_TFSTATE} --region us-east-1
-          aws s3api put-bucket-versioning --bucket ${BUCKET_TFSTATE} --versioning-configuration Status=Enabled
-          aws s3api put-bucket-encryption --bucket ${BUCKET_TFSTATE} --server-side-encryption-configuration '{"Rules":[{"ApplyServerSideEncryptionByDefault":{"SSEAlgorithm":"AES256"}}]}'
+          terraform init
+          terraform apply -auto-approve -target=aws_s3_bucket.tf_state_bucket
+        working-directory: terraform
+
+      # - name: Create S3 Bucket
+      #   run: |
+      #     aws s3api create-bucket --bucket ${BUCKET_TFSTATE} --region us-east-1
+      #     aws s3api put-bucket-versioning --bucket ${BUCKET_TFSTATE} --versioning-configuration Status=Enabled
+      #     aws s3api put-bucket-encryption --bucket ${BUCKET_TFSTATE} --server-side-encryption-configuration '{"Rules":[{"ApplyServerSideEncryptionByDefault":{"SSEAlgorithm":"AES256"}}]}'
 
   list_buckets:
     runs-on: ubuntu-latest
