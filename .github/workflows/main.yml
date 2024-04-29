@@ -22,9 +22,10 @@ jobs:
 
       - name: Create S3 bucket
         run: |
+          cd terraform/
           terraform init
           terraform apply -auto-approve -target=aws_s3_bucket.tf_state_bucket
-        working-directory: terraform
+        # working-directory: terraform
 
       # - name: Create S3 Bucket
       #   run: |
