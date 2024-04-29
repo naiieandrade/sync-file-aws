@@ -2,11 +2,30 @@ name: Deploy to AWS S3 #Deploy Terraform
 
 on: [pull_request]
 
+env:
+  BUCKET_TFSTATE: bucket-tosave-tfstate-upreports
+
 permissions:
   contents: read
   pull-requests: write
 
 jobs:
+  create_bucket_to_tfstate: 
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: "us-east-1"
+
+      - name: Create S3 Bucket
+        run: |
+          aws s3api create-bucket --bucket $BUCKET_TFSTATE --region us-east-1
+          aws s3api put-bucket-versioning --$BUCKET_TFSTATE --versioning-configuration Status=Enabled
+          aws s3api put-bucket-encryption --$BUCKET_TFSTATE --server-side-encryption-configuration '{"Rules":[{"ApplyServerSideEncryptionByDefault":{"SSEAlgorithm":"AES256"}}]}'
+
   list_buckets:
     runs-on: ubuntu-latest
 
