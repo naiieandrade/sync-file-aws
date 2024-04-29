@@ -16,7 +16,7 @@ jobs:
 
       - name: Checkout
         uses: actions/checkout@v4
-        
+
       - name: Setup AWS Credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
@@ -95,7 +95,7 @@ jobs:
         id: apply
         run: |
           cd terraform/
-          terraform apply -auto-approve
+          terraform apply -auto-approve -target=aws_s3_bucket.up_report_bucket
 
 # .github/workflows/terraform.yml
 
