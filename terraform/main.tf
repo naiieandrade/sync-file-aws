@@ -14,7 +14,7 @@ provider "aws" {
 
 
 resource "aws_s3_bucket_versioning" "versioning_example" {
-  bucket = var.name_bucket_to_tfstate
+  bucket = env.BUCKET_TFSTATE
 
   versioning_configuration {
     status = "Enabled"
