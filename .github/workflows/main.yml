@@ -10,25 +10,25 @@ permissions:
   pull-requests: write
 
 jobs:
-  create_bucket_to_tfstate: 
-    runs-on: ubuntu-latest
-    steps:
+  # create_bucket_to_tfstate: 
+  #   runs-on: ubuntu-latest
+  #   steps:
 
-      - name: Checkout
-        uses: actions/checkout@v4
+  #     - name: Checkout
+  #       uses: actions/checkout@v4
 
-      - name: Setup AWS Credentials
-        uses: aws-actions/configure-aws-credentials@v4
-        with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: "us-east-1"
+  #     - name: Setup AWS Credentials
+  #       uses: aws-actions/configure-aws-credentials@v4
+  #       with:
+  #         aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+  #         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+  #         aws-region: "us-east-1"
 
-      - name: Create S3 bucket
-        run: |
-          cd terraform/
-          terraform init
-          terraform apply -auto-approve -target=aws_s3_bucket.tf_state_bucket
+  #     - name: Create S3 bucket
+  #       run: |
+  #         cd terraform/
+  #         terraform init
+  #         terraform apply -auto-approve -target=aws_s3_bucket.tf_state_bucket
         # working-directory: terraform
 
       # - name: Create S3 Bucket
@@ -95,8 +95,10 @@ jobs:
         id: apply
         run: |
           cd terraform/
-          terraform apply -auto-approve -target=aws_s3_bucket.up_report_bucket
+          terraform apply -auto-approve 
+          
 
 # .github/workflows/terraform.yml
+#-target=aws_s3_bucket.up_report_bucket
 
       
