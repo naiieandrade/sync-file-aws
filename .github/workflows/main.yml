@@ -13,6 +13,10 @@ jobs:
   create_bucket_to_tfstate: 
     runs-on: ubuntu-latest
     steps:
+
+      - name: Checkout
+        uses: actions/checkout@v4
+        
       - name: Setup AWS Credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
