@@ -12,18 +12,6 @@ variable "aws_profile" {
 
 }
 
-# variable "name_bucket_to_tfstate" {
-#   type        = string
-#   default = "bucket-tosave-tfstate-upreports"
-#   description = "Name bucket to save tfstate file"
-
-# }
-
-variable "create_bucket_tfstate" {
-  type    = bool
-  default = true
-}
-
 variable "create_bucket_s3" {
   type    = bool
   default = true

@@ -2,16 +2,8 @@ provider "aws" {
   region = "us-east-1"
 }
 
-# resource "aws_s3_bucket" "tf_state_bucket" {
-#   bucket = "bucket-tosave-tfstate-upreports-ada"
-#   count  = var.create_bucket_tfstate ? 1 : 0
-#   # bucket_exists = false
-  
-# }
-
 resource "aws_s3_bucket_cors_configuration" "tfstate_bucket" {
   bucket = "bucket-tosave-tfstate-upreports-ada"
-  #"bucket-tosave-tfstate-upreports"
 
   cors_rule {
     allowed_headers = ["*"]
@@ -20,11 +12,6 @@ resource "aws_s3_bucket_cors_configuration" "tfstate_bucket" {
     expose_headers  = []
     # max_age_seconds = 3000
   }
-
-  # cors_rule {
-  #   allowed_methods = ["GET"]
-  #   allowed_origins = ["*"]
-  # }
 }
 
 
