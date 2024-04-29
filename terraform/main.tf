@@ -12,16 +12,6 @@ provider "aws" {
   region = "us-east-1"
 }
 
-
-# resource "aws_s3_bucket_versioning" "versioning_example" {
-#   bucket = env.BUCKET_TFSTATE #"bucket-tosave-tfstate-upreports" 
-#   #var.name_bucket_to_tfstate
-
-#   versioning_configuration {
-#     status = "Enabled"
-#   }
-# }
-
 resource "aws_s3_bucket" "up_report_bucket" {
   count  = var.create_bucket ? 1 : 0
   bucket = "up-reports-project-ada-bucket-25042024"
