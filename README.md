@@ -21,31 +21,6 @@ Esses dados serão utilizados na aplicação python.
 
 É importante ter o docker instalado e o docker-compose.
 
-### Configuração CORS
-
-Para configurar o CORS, siga estes passos:
-
-1. Acesse as configurações do seu bucket no console da AWS.
-2. Vá para a seção "Permissões" e clique em "CORS".
-3. Cole o código abaixo:
-
-```
-[
-    {
-        "AllowedHeaders": [
-            "*"
-        ],
-        "AllowedMethods": [
-            "PUT",
-            "POST"
-        ],
-        "AllowedOrigins": [
-            "*"
-        ],
-        "ExposeHeaders": []
-    }
-]
-```
 
 
 ## Configuração de variáveis
@@ -65,6 +40,20 @@ Para configurar o CORS, siga estes passos:
 1. Arquitetura:
 
 ![Arquitetura](.github/imgs/scriptsh.png "Arquitetura usando script shell")
+
+2. Configurações
+
+Para que possa rodar o script `script.sh` certifique se de estar na pasta raíz onde se encontra o arquivo.
+
+É preciso alterar o nome dos dois buckets no arquivo `terraform/main.tf`. Um bucket será armazenado o arquivo .tfstate e o outro é o bucket para onde serão enviados os uploads.
+
+** pode criar uma pasta terraform sem essa etapa deixando localmente
+
+
+```
+chmod +x script.sh
+./script.sh
+```
 
 
 ### 3. Script python + boto3
