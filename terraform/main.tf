@@ -2,14 +2,14 @@ provider "aws" {
   region = "us-east-1"
 }
 
-resource "aws_s3_bucket" "tf_state_bucket" {
-  bucket = "bucket-tosave-tfstate-upreports-ada"
-  count  = var.create_bucket_tfstate ? 1 : 0
-  # bucket_exists = false
+# resource "aws_s3_bucket" "tf_state_bucket" {
+#   bucket = "bucket-tosave-tfstate-upreports-ada"
+#   count  = var.create_bucket_tfstate ? 1 : 0
+#   # bucket_exists = false
   
-}
+# }
 
-resource "aws_s3_bucket_cors_configuration" "example" {
+resource "aws_s3_bucket_cors_configuration" "tfstate_bucket" {
   bucket = "bucket-tosave-tfstate-upreports-ada"
   #"bucket-tosave-tfstate-upreports"
 
@@ -28,15 +28,15 @@ resource "aws_s3_bucket_cors_configuration" "example" {
 }
 
 
-resource "aws_s3_bucket_versioning" "tfstate_versioning" {
-  bucket = "bucket-tosave-tfstate-upreports-ada"
-  # "bucket-tosave-tfstate-upreports" 
-  #var.name_bucket_to_tfstate
+# resource "aws_s3_bucket_versioning" "tfstate_versioning" {
+#   bucket = "bucket-tosave-tfstate-upreports-ada"
+#   # "bucket-tosave-tfstate-upreports" 
+#   #var.name_bucket_to_tfstate
 
-  versioning_configuration {
-    status = "Enabled"
-  }
-}
+#   versioning_configuration {
+#     status = "Enabled"
+#   }
+# }
 
 
 terraform {
