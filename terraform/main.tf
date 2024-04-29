@@ -1,5 +1,5 @@
 resource "aws_s3_bucket" "tf_state_bucket" {
-  count  = var.create_bucket ? 1 : 0
+  count  = var.create_bucket_tfstate ? 1 : 0
   bucket = "bucket-tosave-tfstate-upreports"
 }
 
@@ -28,6 +28,6 @@ provider "aws" {
 }
 
 resource "aws_s3_bucket" "up_report_bucket" {
-  count  = var.create_bucket ? 1 : 0
+  count  = var.create_bucket_s3 ? 1 : 0
   bucket = "up-reports-project-ada-bucket-25042024"
 }
